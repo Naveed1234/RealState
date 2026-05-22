@@ -1,0 +1,151 @@
+.page-card {
+  padding: 24px;
+  background: #ffffff;
+  box-shadow: 0 16px 40px rgba(15, 23, 42, 0.08);
+}
+
+.buyer-table-card {
+  /* border-radius: 18px; */
+  overflow: visible;
+}
+
+.buyer-table-scroll {
+  max-height: 420px;
+  overflow: auto;
+}
+
+.buyer-table-scroll .ag-root-wrapper {
+  min-width: 950px;
+}
+
+.buyer-detail-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 2050;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+}
+
+.buyer-detail-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.7);
+  backdrop-filter: blur(2px);
+}
+
+.buyer-detail-card {
+  position: relative;
+  width: min(1120px, 100%);
+  max-height: calc(100vh - 3rem);
+  overflow: hidden;
+  border-radius: 1rem;
+  background: #ffffff;
+  box-shadow: 0 30px 80px rgba(15, 23, 42, 0.2);
+  z-index: 10;
+}
+
+.buyer-detail-header {
+  padding: 1.5rem 1.5rem 0;
+}
+
+.buyer-detail-body {
+  padding: 0 1.5rem 1.5rem;
+  overflow-y: auto;
+}
+
+.image-viewer .viewer-frame {
+  min-height: 340px;
+  background: #f7fafc;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 1rem;
+  overflow: hidden;
+  border: 1px solid #e5e7eb;
+}
+
+.viewer-placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: #64748b;
+  font-size: 1rem;
+  text-align: center;
+  padding: 1rem;
+}
+
+.placeholder-icon {
+  font-size: 2rem;
+  margin-bottom: 0.75rem;
+}
+
+.image-viewer img {
+  width: auto;
+  height: auto;
+  max-width: 100%;
+  max-height: 380px;
+  transition: transform 0.2s ease;
+}
+
+.image-gallery {
+  display: flex;
+  gap: 0.75rem;
+  overflow-x: auto;
+  padding: 0.75rem 0 0.25rem;
+}
+
+.image-thumb {
+  text-align: center;
+  min-width: 120px;
+}
+
+.image-thumb img {
+  width: 120px;
+  height: 80px;
+  object-fit: cover;
+  border-radius: 0.75rem;
+  border: 2px solid transparent;
+  cursor: pointer;
+}
+
+.image-thumb img.selected,
+.image-thumb img:hover {
+  border-color: #0f4fae;
+}
+
+.thumb-label {
+  margin-top: 0.35rem;
+  font-size: 0.85rem;
+  color: #4b5563;
+}
+
+.detail-summary {
+  min-height: 100%;
+  background: #f8fafc;
+  border-radius: 1rem;
+}
+
+.detail-summary .row {
+  margin-bottom: 1rem;
+}
+
+.detail-summary .text-secondary {
+  color: #6b7280;
+}
+
+.detail-summary .fw-semibold {
+  color: #111827;
+}
+
+.empty-state {
+  padding: 48px 0;
+  text-align: center;
+  color: #6b7280;
+}
+
+.empty-state p {
+  margin-bottom: 16px;
+}

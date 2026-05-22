@@ -1,0 +1,46 @@
+<div class="sidebar">
+  <div class="brand-block">
+    <div class="brand-mark">RE</div>
+    <div class="brand-copy">
+      <h3>Real Estate</h3>
+      <span>Admin dashboard</span>
+    </div>
+  </div>
+
+  <div class="section-label">Main navigation</div>
+  <ul class="menu-list">
+    <li><a routerLink="/dashboard" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }"><i class="fas fa-home"></i> Dashboard</a></li>
+    <li>
+      <button type="button" class="menu-group" [class.active]="openMenu === 'buyers'" (click)="toggleMenu('buyers')">
+        <span><i class="fas fa-users"></i> Buyers</span>
+        <span class="submenu-caret" [class.open]="openMenu === 'buyers'"></span>
+      </button>
+      <ul class="submenu-list" *ngIf="openMenu === 'buyers'">
+        <li><a routerLink="/buyers" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }"><i class="fas fa-list"></i> Buyer Master</a></li>
+        <li><a routerLink="/buyers/add" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }"><i class="fas fa-plus-circle"></i> Add Buyer</a></li>
+      </ul>
+    </li>
+    <li>
+      <button type="button" class="menu-group" [class.active]="openMenu === 'sellers'" (click)="toggleMenu('sellers')">
+        <span><i class="fas fa-user-tie"></i> Sellers</span>
+        <span class="submenu-caret" [class.open]="openMenu === 'sellers'"></span>
+      </button>
+      <ul class="submenu-list" *ngIf="openMenu === 'sellers'">
+        <li><a routerLink="/sellers" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }"><i class="fas fa-list"></i> Seller Master</a></li>
+        <li><a routerLink="/sellers/add" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }"><i class="fas fa-plus-circle"></i> Add Seller</a></li>
+      </ul>
+    </li>
+    <li><a routerLink="/plots" routerLinkActive="active"><i class="fas fa-map"></i> Plots</a></li>
+    <li>
+      <button type="button" class="menu-group" [class.active]="openMenu === 'installments'" (click)="toggleMenu('installments')">
+        <span><i class="fas fa-credit-card"></i> Installments</span>
+        <span class="submenu-caret" [class.open]="openMenu === 'installments'"></span>
+      </button>
+      <ul class="submenu-list" *ngIf="openMenu === 'installments'">
+        <li><a routerLink="/installments/plan" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }"><i class="fas fa-file-invoice"></i> Installment Plan</a></li>
+      </ul>
+    </li>
+    <li><a routerLink="/agents" routerLinkActive="active"><i class="fas fa-briefcase"></i> Agents</a></li>
+    <li><a routerLink="/registries" routerLinkActive="active"><i class="fas fa-file-alt"></i> Registry</a></li>
+  </ul>
+</div>

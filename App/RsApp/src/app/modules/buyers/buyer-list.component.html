@@ -1,0 +1,167 @@
+<div class="page-card my-1 card shadow">
+  <div class="card-header mb-2 d-flex justify-content-between align-items-center">
+    <div>
+      <h4 class="card-title mb-1">Buyer List</h4>      
+    </div>
+    <a routerLink="/buyers/add" class="btn btn-save fw-bold">Add New Buyer</a>
+  </div>
+
+  <div *ngIf="buyers.length; else emptyState">
+    <div class="buyer-table-card">
+      <div class="buyer-table-actions d-flex justify-content-end align-items-center mb-3 gap-2">
+      <div class="buyer-search-wrapper flex-shrink-0" style="width: 280px; max-width: 100%;">
+        <input
+          type="text"
+          class="form-control form-control-sm"
+          placeholder="Search full table..."
+          (input)="onQuickFilterChanged($any($event.target).value)">
+      </div>
+    </div>
+
+      <div class="ag-theme-alpine buyer-table-scroll" style="width: 100%; height: 410px;">
+        <ag-grid-angular
+          style="width: 100%; height: 100%;"
+          class="ag-theme-alpine"
+          [rowData]="buyers"
+          [columnDefs]="columnDefs"
+          [defaultColDef]="defaultColDef"
+          [animateRows]="true"
+          rowSelection="single"
+          (gridReady)="onGridReady($event)"
+          (firstDataRendered)="onFirstDataRendered($event)">
+        </ag-grid-angular>
+      </div>
+    </div>
+  </div>
+
+  <ng-template #emptyState>
+    <div class="empty-state">
+      <p class="mb-2">No buyers saved yet.</p>
+      <a routerLink="/buyers/add" class="btn btn-save fw-bold">Add your first buyer</a>
+    </div>
+  </ng-template>
+
+  <div *ngIf="selectedBuyer" class="buyer-detail-overlay">
+    <div class="buyer-detail-backdrop" (click)="closeDetail()"></div>
+    <div class="buyer-detail-card">
+      <div class="buyer-detail-header d-flex justify-content-between align-items-center mb-4">
+        <div>
+          <h5 class="mb-1">Buyer Details</h5>
+          <small class="text-muted">Full buyer record and image gallery</small>
+        </div>
+        <button type="button" class="btn btn-close" aria-label="Close" (click)="closeDetail()"></button>
+      </div>
+
+      <div class="buyer-detail-body">
+        <div class="row gy-4">
+          <div class="col-lg-7">
+            <div class="image-viewer mb-3">
+              <div class="viewer-frame">
+                <ng-container *ngIf="selectedImage || getImageUrl(selectedBuyer.buyerImage) || getImageUrl(selectedBuyer.cnicFront) || getImageUrl(selectedBuyer.cnicBack); else noImage">
+                  <img
+                    [src]="selectedImage || getImageUrl(selectedBuyer.buyerImage) || getImageUrl(selectedBuyer.cnicFront) || getImageUrl(selectedBuyer.cnicBack)"
+                    alt="Selected buyer image"
+                    [style.transform]="'scale(' + imageZoom + ')'">
+                </ng-container>
+                <ng-template #noImage>
+                  <div class="viewer-placeholder">
+                    <div class="placeholder-icon">🖼️</div>
+                    <div>No image available</div>
+                  </div>
+                </ng-template>
+              </div>
+              <div class="d-flex justify-content-between align-items-center mt-3 gap-2">
+                <div class="text-muted">Click thumbnails below to preview</div>
+                <div class="btn-group">
+                  <button type="button" class="btn btn-outline-secondary btn-sm" (click)="zoomOut()">-</button>
+                  <button type="button" class="btn btn-outline-secondary btn-sm" (click)="zoomIn()">+</button>
+                </div>
+              </div>
+            </div>
+
+            <div class="image-gallery">
+              <div class="image-thumb" *ngIf="getImageUrl(selectedBuyer.buyerImage)">
+                <img
+                  [src]="getImageUrl(selectedBuyer.buyerImage)"
+                  alt="Buyer image"
+                  (click)="selectImage(getImageUrl(selectedBuyer.buyerImage))"
+                  [class.selected]="selectedImage === getImageUrl(selectedBuyer.buyerImage)">
+                <div class="thumb-label">Buyer Image</div>
+              </div>
+              <div class="image-thumb" *ngIf="getImageUrl(selectedBuyer.cnicFront)">
+                <img
+                  [src]="getImageUrl(selectedBuyer.cnicFront)"
+                  alt="CNIC front"
+                  (click)="selectImage(getImageUrl(selectedBuyer.cnicFront))"
+                  [class.selected]="selectedImage === getImageUrl(selectedBuyer.cnicFront)">
+                <div class="thumb-label">CNIC Front</div>
+              </div>
+              <div class="image-thumb" *ngIf="getImageUrl(selectedBuyer.cnicBack)">
+                <img
+                  [src]="getImageUrl(selectedBuyer.cnicBack)"
+                  alt="CNIC back"
+                  (click)="selectImage(getImageUrl(selectedBuyer.cnicBack))"
+                  [class.selected]="selectedImage === getImageUrl(selectedBuyer.cnicBack)">
+                <div class="thumb-label">CNIC Back</div>
+              </div>
+              <div class="image-thumb no-image-thumb" *ngIf="!getImageUrl(selectedBuyer.buyerImage) && !getImageUrl(selectedBuyer.cnicFront) && !getImageUrl(selectedBuyer.cnicBack)">
+                <div class="thumb-placeholder">No images available</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-5">
+            <div class="detail-summary p-4 rounded-3">
+              <div class="row mb-3 align-items-center">
+                <div class="col">
+                  <span class="badge bg-primary">Buyer Info</span>
+                </div>
+              </div>
+
+              <div class="row mb-3">
+                <div class="col-6 text-secondary">Name</div>
+                <div class="col-6 fw-semibold text-end">{{ selectedBuyer.buyerName }}</div>
+              </div>
+              <div class="row mb-3">
+                <div class="col-6 text-secondary">Mobile</div>
+                <div class="col-6 fw-semibold text-end">{{ selectedBuyer.mobileNumber }}</div>
+              </div>
+              <div class="row mb-3">
+                <div class="col-6 text-secondary">CNIC</div>
+                <div class="col-6 fw-semibold text-end">{{ selectedBuyer.cnicNumber }}</div>
+              </div>
+              <div class="row mb-3">
+                <div class="col-6 text-secondary">Location</div>
+                <div class="col-6 fw-semibold text-end">{{ selectedBuyer.plotLocation }}</div>
+              </div>
+              <div class="row mb-3">
+                <div class="col-6 text-secondary">Plot Size</div>
+                <div class="col-6 fw-semibold text-end">{{ selectedBuyer.plotSize }}</div>
+              </div>
+              <div class="row mb-3">
+                <div class="col-6 text-secondary">Price / Marla</div>
+                <div class="col-6 fw-semibold text-end">{{ selectedBuyer.pricePerMarla }}</div>
+              </div>
+              <div class="row mb-3">
+                <div class="col-6 text-secondary">Total</div>
+                <div class="col-6 fw-semibold text-end">{{ selectedBuyer.totalAmount }}</div>
+              </div>
+              <div class="row mb-3">
+                <div class="col-6 text-secondary">Payment</div>
+                <div class="col-6 fw-semibold text-end">{{ selectedBuyer.payment || '-' }}</div>
+              </div>
+              <div class="row mb-3">
+                <div class="col-6 text-secondary">Bank</div>
+                <div class="col-6 fw-semibold text-end">{{ selectedBuyer.bankName || '-' }}</div>
+              </div>
+              <div class="row mb-3">
+                <div class="col-6 text-secondary">Account #</div>
+                <div class="col-6 fw-semibold text-end">{{ selectedBuyer.accountNumber || '-' }}</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

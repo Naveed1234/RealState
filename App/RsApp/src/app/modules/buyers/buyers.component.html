@@ -1,0 +1,283 @@
+<div class="container mt-4">
+
+  <div class="card shadow">
+
+    <div class="card-header bg-primary text-white fw-bold">
+      Add Buyer
+    </div>
+
+    <div class="card-body">
+
+      <div *ngIf="formSaved" class="alert alert-success" role="alert">
+        Buyer information saved successfully.
+      </div>
+
+      <form [formGroup]="buyerForm" (ngSubmit)="saveBuyer()">
+
+        <div class="row">
+
+          <div class="col-12 col-sm-6 col-lg-4 mb-3">
+            <label class="form-label">Name</label>
+
+            <input
+              type="text"
+              class="form-control"
+              formControlName="buyerName"
+              [class.is-invalid]="f['buyerName'].touched && f['buyerName'].invalid">
+
+            <div
+              *ngIf="
+                f['buyerName'].touched &&
+                f['buyerName'].invalid
+              "
+              class="invalid-feedback">
+
+              <div *ngIf="f['buyerName'].errors?.['required']">
+                Buyer name is required.
+              </div>
+
+              <div *ngIf="f['buyerName'].errors?.['minlength']">
+                Name must be at least 3 characters.
+              </div>
+
+              <div *ngIf="f['buyerName'].errors?.['buyerNameFormat']">
+                Name must not start with a number and must contain at least 3 characters.
+              </div>
+
+            </div>
+          </div>
+
+          
+          <div class="col-12 col-sm-6 col-lg-4 mb-3">
+            <label class="form-label">Phone Number</label>
+
+            <input
+              type="text"
+              class="form-control"
+              formControlName="mobileNumber"
+              maxlength="12"
+              (input)="onPhoneInput($event)"
+              placeholder="03XX-XXXXXXX"
+              [class.is-invalid]="f['mobileNumber'].touched && f['mobileNumber'].invalid">
+
+            <div
+              *ngIf="
+                f['mobileNumber'].touched &&
+                f['mobileNumber'].invalid
+              "
+              class="invalid-feedback">
+
+              <div *ngIf="f['mobileNumber'].errors?.['required']">
+                Phone number is required.
+              </div>
+
+              <div *ngIf="f['mobileNumber'].errors?.['pattern']">
+                Use Pakistan format: 03XX-XXXXXXX.
+              </div>
+
+            </div>
+          </div>
+
+          
+          <div class="col-12 col-sm-6 col-lg-4 mb-3">
+            <label class="form-label">CNIC Number</label>
+
+            <input
+              type="text"
+              class="form-control"
+              formControlName="cnicNumber"
+              maxlength="15"
+              (input)="onCnicInput($event)"
+              placeholder="12345-1234567-1"
+              [class.is-invalid]="f['cnicNumber'].touched && f['cnicNumber'].invalid">
+
+            <div
+              *ngIf="
+                f['cnicNumber'].touched &&
+                f['cnicNumber'].invalid
+              "
+              class="invalid-feedback">
+
+              <div *ngIf="f['cnicNumber'].errors?.['required']">
+                CNIC number is required.
+              </div>
+
+              <div *ngIf="f['cnicNumber'].errors?.['pattern']">
+                Use format: 12345-1234567-1.
+              </div>
+
+            </div>
+          </div>
+
+         
+          <div class="col-12 col-sm-6 col-lg-4 mb-3">
+            <label class="form-label">Plot Location</label>
+
+            <input
+              type="text"
+              class="form-control"
+              formControlName="plotLocation"
+              [class.is-invalid]="f['plotLocation'].touched && f['plotLocation'].invalid">
+
+            <div
+              *ngIf="
+                f['plotLocation'].touched &&
+                f['plotLocation'].invalid
+              "
+              class="invalid-feedback">
+
+              <div *ngIf="f['plotLocation'].errors?.['required']">
+                Plot location is required.
+              </div>
+
+              <div *ngIf="f['plotLocation'].errors?.['minlength']">
+                Enter a valid plot location.
+              </div>
+
+            </div>
+          </div>
+
+          
+          <div class="col-12 col-sm-6 col-lg-4 mb-3">
+            <label class="form-label">Plot Size</label>
+
+            <input
+              type="text"
+              class="form-control"
+              formControlName="plotSize"
+              placeholder="e.g. 5 or 5.5"
+              [class.is-invalid]="f['plotSize'].touched && f['plotSize'].invalid">
+
+            <div
+              *ngIf="
+                f['plotSize'].touched &&
+                f['plotSize'].invalid
+              "
+              class="invalid-feedback">
+
+              <div *ngIf="f['plotSize'].errors?.['required']">
+                Plot size is required.
+              </div>
+
+              <div *ngIf="f['plotSize'].errors?.['pattern']">
+                Enter a valid numeric size.
+              </div>
+
+            </div>
+          </div>
+
+         
+          <div class="col-12 col-sm-6 col-lg-4 mb-3">
+            <label class="form-label">Price Per Marla</label>
+
+            <input
+              type="text"
+              class="form-control"
+              formControlName="pricePerMarla"
+              placeholder="e.g. 2500000"
+              [class.is-invalid]="f['pricePerMarla'].touched && f['pricePerMarla'].invalid">
+
+            <div
+              *ngIf="
+                f['pricePerMarla'].touched &&
+                f['pricePerMarla'].invalid
+              "
+              class="invalid-feedback">
+
+              <div *ngIf="f['pricePerMarla'].errors?.['required']">
+                Price per marla is required.
+              </div>
+
+              <div *ngIf="f['pricePerMarla'].errors?.['pattern']">
+                Enter a valid numeric value.
+              </div>
+
+            </div>
+          </div>
+
+         
+          <div class="col-12 col-sm-6 col-lg-3 mb-3">
+            <label class="form-label">Bank Name</label>
+            <input type="text" class="form-control" formControlName="bankName">
+          </div>
+
+          <div class="col-12 col-sm-6 col-lg-3 mb-3">
+            <label class="form-label">Account Number</label>
+            <input type="text" class="form-control" formControlName="accountNumber">
+          </div>
+
+          <div class="col-12 col-sm-6 col-lg-3 mb-3">
+            <label class="form-label">Payment</label>
+            <input type="text" class="form-control" formControlName="payment">
+          </div>
+
+          <div class="col-12 col-sm-6 col-lg-3 mb-3">
+            <label class="form-label">Total Amount</label>
+            <input type="text" class="form-control" formControlName="totalAmount" [disabled]="true">
+          </div>
+
+          
+          <div class="col-12 col-sm-6 col-lg-4 mb-3">
+            <label class="form-label">Buyer Image</label>
+
+            <input
+              type="file"
+              class="form-control"
+              accept="image/*"
+              (change)="onFileChange($event, 'buyerImage')"
+              #buyerImageInput>
+
+            <div class="upload-hint">
+              Selected:
+              {{ f['buyerImage'].value?.name || 'No file selected' }}
+            </div>
+          </div>
+
+          <!-- CNIC Front -->
+          <div class="col-12 col-sm-6 col-lg-4 mb-3">
+            <label class="form-label">CNIC Image Front</label>
+
+            <input
+              type="file"
+              class="form-control"
+              accept="image/*"
+              (change)="onFileChange($event, 'cnicFront')"
+              #cnicFrontInput>
+
+            <div class="upload-hint">
+              Selected:
+              {{ f['cnicFront'].value?.name || 'No file selected' }}
+            </div>
+          </div>
+
+          
+          <div class="col-12 col-sm-6 col-lg-4 mb-3">
+            <label class="form-label">CNIC Image Back</label>
+
+            <input
+              type="file"
+              class="form-control"
+              accept="image/*"
+              (change)="onFileChange($event, 'cnicBack')"
+              #cnicBackInput>
+
+            <div class="upload-hint">
+              Selected:
+              {{ f['cnicBack'].value?.name || 'No file selected' }}
+            </div>
+          </div>
+
+        </div>
+        <div class="row">
+          <div class="col-12 d-flex justify-content-end">
+            <button type="submit" class="btn btn-save fw-bold">Save Buyer</button>
+          </div>
+        </div>
+
+      </form>
+
+    </div>
+
+  </div>
+
+</div>

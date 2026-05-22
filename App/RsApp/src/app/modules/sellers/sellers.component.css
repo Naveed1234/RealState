@@ -1,0 +1,33 @@
+.form-label {
+  font-weight: 600;
+}
+
+.card-header {
+  background: linear-gradient(180deg, #003d82 0%, #0f4fae 100%);
+  color: #ffffff;
+}
+
+.upload-hint {
+  font-size: 0.9rem;
+  color: #6c757d;
+  margin-top: 0.35rem;
+}
+
+.is-invalid {
+  border-color: #dc3545 !important;
+}
+
+.invalid-feedback {
+  display: block;
+}
+
+.btn-save {
+  background: linear-gradient(180deg, #003d82 0%, #0f4fae 100%);
+  border: none;
+  color: #ffffff;
+}
+
+.btn-save:hover,
+.btn-save:focus {
+  background: linear-gradient(180deg, #002f67 0%, #0d3e90 100%);
+}

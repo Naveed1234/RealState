@@ -1,0 +1,49 @@
+<div class="page-card">
+  <div class="card-header mb-4 d-flex justify-content-between align-items-center">
+    <div>
+      <h4 class="card-title mb-1">Seller List</h4>
+      <p class="text-muted mb-0">Seller Master shows saved seller records.</p>
+    </div>
+    <a routerLink="/sellers/add" class="btn btn-primary">Add New Seller</a>
+  </div>
+
+  <div *ngIf="sellers.length; else emptyState">
+    <div class="table-responsive">
+      <table class="table table-hover table-bordered align-middle">
+        <thead class="table-light">
+          <tr>
+            <th>Name</th>
+            <th>Mobile</th>
+            <th>CNIC</th>
+            <th>Location</th>
+            <th>Plot Size</th>
+            <th>Price / Marla</th>
+            <th>Total</th>
+            <th>Payment</th>
+            <th>Bank</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let seller of sellers">
+            <td>{{ seller.sellerName }}</td>
+            <td>{{ seller.mobileNumber }}</td>
+            <td>{{ seller.cnicNumber }}</td>
+            <td>{{ seller.plotLocation }}</td>
+            <td>{{ seller.plotSize }}</td>
+            <td>{{ seller.pricePerMarla }}</td>
+            <td>{{ seller.totalAmount }}</td>
+            <td>{{ seller.payment || '-' }}</td>
+            <td>{{ seller.bankName || '-' }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <ng-template #emptyState>
+    <div class="empty-state">
+      <p class="mb-2">No sellers saved yet.</p>
+      <a routerLink="/sellers/add" class="btn btn-outline-primary">Add your first seller</a>
+    </div>
+  </ng-template>
+</div>
